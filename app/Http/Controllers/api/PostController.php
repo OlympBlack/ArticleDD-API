@@ -7,14 +7,20 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
-
-
-
+use Exception;
 
 class PostController extends Controller
 {
     public function index(){
-        return "Je vous salue les gars";
+        try{
+            return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Les Posts ont été récupéré',
+            'data' => Post::all()
+        ]);
+        }catch(Exception $e){
+            response()->json($e);
+        }
     }
 
     //Fonction pour créer un nouveau post
@@ -39,4 +45,25 @@ class PostController extends Controller
         $post->description = $request->description;
         $post->save();
     }
+
+    //fonction pour supprimer un post
+    public function delete($id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json([
+                'status_code' => 404,
+                'status_message' => 'Post introuvable'
+            ], 404);
+        }
+
+        $post->delete();
+
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Le Post a été supprimé avec succès'
+        ]);
+    }
+
 }

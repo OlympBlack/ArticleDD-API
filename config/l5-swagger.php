@@ -44,9 +44,9 @@ return [
                  * Absolute paths to directory containing the swagger annotations are stored.
                  */
                 'annotations' => [
-                    base_path('app/Http/Controllers/api'), // tous tes contrôleurs avec les annotations
+                    base_path('app/Swagger'), // <- dossier avec SwaggerAnnotations.php
+                    base_path('app/Http/Controllers/api'), // <- ton PostController
                 ],
-
             ],
         ],
     ],
@@ -82,7 +82,7 @@ return [
             /*
              * Absolute path to location where parsed annotations will be stored
              */
-            'docs' => public_path('swagger'),
+            'docs' => storage_path('api-docs'),
 
             /*
              * Absolute path to directory where to export views

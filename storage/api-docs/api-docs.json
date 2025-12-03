@@ -1,0 +1,220 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Article CRUD",
+        "description": "Documentation de l'API Article CRUD",
+        "contact": {
+            "email": "contact@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Serveur local"
+        }
+    ],
+    "paths": {
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Récupérer tous les posts",
+                "operationId": "3db3501546bc1365f08721cfcfccecce",
+                "responses": {
+                    "200": {
+                        "description": "Liste des posts",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "status_message": {
+                                            "type": "string",
+                                            "example": "Les Posts ont été récupéré"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titre": {
+                                                        "type": "string",
+                                                        "example": "Titre du post"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Description du post"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/create": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Créer un nouveau post",
+                "operationId": "e53239ba0d0280a27c483a88624ea8ce",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Mon nouveau post"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Description du post"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "status_message": {
+                                            "type": "string",
+                                            "example": "Le Post a été ajouté avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "titre": {
+                                                    "type": "string",
+                                                    "example": "Mon nouveau post"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Description du post"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/edit/{id}": {
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Mettre à jour un post",
+                "operationId": "b70d7e429eb1e0e6b3262d40e35e2c70",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du post",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Titre mis à jour"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nouvelle description"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post mis à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Post introuvable"
+                    }
+                }
+            }
+        },
+        "/api/post/{id}": {
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Supprimer un post",
+                "operationId": "44928ec5034ec829a05ed3ff8be6abd1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du post",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Post introuvable"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Posts",
+            "description": "Posts"
+        }
+    ]
+}
